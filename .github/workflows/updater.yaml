@@ -4,7 +4,7 @@ name: Run Updater Script and Commit Changes
 on:
   # Option 1: Run on a schedule (e.g., daily at 2 AM UTC)
   schedule:
-    - cron: '0 2 * * *' # Adjust cron syntax as needed: https://crontab.guru/
+    - cron: '0 2,8,14,20 * * *' # Adjust cron syntax as needed: https://crontab.guru/
 
   # Option 2: Allow manual triggering from the GitHub Actions UI
   workflow_dispatch:
