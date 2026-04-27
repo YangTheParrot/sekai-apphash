@@ -2,19 +2,19 @@
     "production_android": {
         "package": "com.sega.ColorfulStage.en",
         "reported_package": "com.sega.ColorfulStage.en",
-        "app_hash": "499ad5c9-a04b-49a7-b3ac-214c2354b74a",
+        "app_hash": "c8f95612-00bc-4d58-bedc-a9c7de01c7de",
         "app_region": "en",
-        "app_version": "5.2.0",
+        "app_version": "5.3.0",
         "app_platform": "android",
-        "ab_version": "5.2.0"
+        "ab_version": "5.3.0"
     },
     "production_ios": {
         "package": "com.sega.ColorfulStage.en",
         "reported_package": "com.sega.ColorfulStage.en",
-        "app_hash": "499ad5c9-a04b-49a7-b3ac-214c2354b74a",
+        "app_hash": "c8f95612-00bc-4d58-bedc-a9c7de01c7de",
         "app_region": "en",
-        "app_version": "5.2.0",
+        "app_version": "5.3.0",
         "app_platform": "ios",
-        "ab_version": "5.2.0"
+        "ab_version": "5.3.0"
     }
 }
