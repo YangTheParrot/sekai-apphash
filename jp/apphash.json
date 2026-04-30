@@ -1,1 +1,20 @@
-{}
+{
+    "production_android": {
+        "package": "com.sega.pjsekai",
+        "reported_package": "com.sega.pjsekai",
+        "app_hash": "3ac99d5a-1857-36ae-0993-99e2f19cbeb6",
+        "app_region": "jp",
+        "app_version": "6.5.0",
+        "app_platform": "android",
+        "ab_version": "6.5.0"
+    },
+    "production_ios": {
+        "package": "com.sega.pjsekai",
+        "reported_package": "com.sega.pjsekai",
+        "app_hash": "3ac99d5a-1857-36ae-0993-99e2f19cbeb6",
+        "app_region": "jp",
+        "app_version": "6.5.0",
+        "app_platform": "ios",
+        "ab_version": "6.5.0"
+    }
+}
