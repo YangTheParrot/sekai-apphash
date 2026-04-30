@@ -164,10 +164,10 @@ def fetch(region: str):
 
 def apphash(region: str):
     CWD = lambda *a: os.path.abspath(os.path.join(region, *a))
-    if not os.path.exists(CWD(".temp", f"{region}.apk")):
-        logger.error(f"apk not found on {region}.")
+    if not os.path.exists(CWD(".temp", f"{region}.apk")) and not os.path.exists(CWD(".temp", f"{region}.xapk")):
+        logger.error(f"apk/xapk not found on {region}.")
         return
-    from apphash import main_apphash
+    from sssekai.entrypoint.apphash import main_apphash
 
     class NamedDict(dict):
         def __getattribute__(self, name: str):
@@ -176,12 +176,14 @@ def apphash(region: str):
             except AttributeError:
                 return self.get(name, None)
 
+    apk_src = CWD(".temp", f"{region}.xapk") if os.path.exists(CWD(".temp", f"{region}.xapk")) else CWD(".temp", f"{region}.apk")
+
     with open(CWD("apphash.json"), "w") as f:
         with redirect_stdout(f):
             main_apphash(
                 NamedDict(
                     {
-                        "apk_src": CWD(".temp", f"{region}.apk"),
+                        "apk_src": apk_src,
                         "format": "json",
                         "deep": False
                     }
@@ -193,7 +195,7 @@ def apphash(region: str):
             main_apphash(
                 NamedDict(
                     {
-                        "apk_src": CWD(".temp", f"{region}.apk"),
+                        "apk_src": apk_src,
                         "format": "markdown",
                         "deep": False
                     }
