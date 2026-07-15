@@ -2,9 +2,9 @@
     "production_android": {
         "package": "com.sega.pjsekai",
         "reported_package": "com.sega.pjsekai",
-        "app_hash": "3b21f2ea-2e70-48b3-ad1f-3c6c6b1a5a26",
+        "app_hash": "f70c7f71-042b-4763-9b80-0e8549d199b2",
         "app_region": "jp",
-        "app_version": "6.6.0",
+        "app_version": "6.6.2",
         "app_platform": "android",
         "ab_version": "6.6.0"
     },
