@@ -1,7 +1,9 @@
-from typing import Tuple
-import requests, os, sys, logging, argparse, json, zipfile
+from typing import Optional, Tuple
+import requests, os, re, sys, logging, argparse, json, zipfile
 from concurrent.futures import ThreadPoolExecutor
 from contextlib import redirect_stdout
+from io import StringIO
+from urllib.parse import urlsplit
 
 QOOAPP_TOKEN = os.environ.get("QOOAPP_TOKEN", None)
 assert QOOAPP_TOKEN, "Environment variable QOOAPP_TOKEN not set."
@@ -33,7 +35,7 @@ class QooApp(requests.Session):
         assert resp["code"] == 200, resp
         resp = resp["data"]
         return (
-            f'MD5 {resp["apk"]["baseApkMd5"]}',
+            f"MD5 {resp['apk']['baseApkMd5']}",
             f"https://api.ppaooq.com/v11/apps/{resp['packageId']}/download",
         )
 
@@ -45,37 +47,60 @@ class QooApp(requests.Session):
         return resp["data"]
 
 
-class PlainETag(requests.Session):
-    url: str
+class PlainHTTP(requests.Session):
+    urls: list
 
-    def __init__(self, url: str):
+    def __init__(self, *urls: str):
         super().__init__()
-        self.url = url
+        self.urls = list(urls)
 
-    def fetch(self, retries=5) -> Tuple[str, str]:
-        for _ in range(retries):
-            try:
-                resp = self.get(self.url, stream=True)
-                resp.raise_for_status()
-                etag = resp.headers.get("ETag", None)
-                assert etag, f"ETag not found for {self.url}"
-                return f"ETag {etag}", self.url
-            except Exception as e:
-                logger.warning(f"failed to fetch {self.url}: {e}")
-                if _ == retries - 1:
-                    raise e
-                logger.warning(f"retrying {self.url}...")
+    def version_tag(self, resp: requests.Response) -> str:
+        etag = resp.headers.get("ETag", None)
+        if etag:
+            return f"ETag {etag}"
+        path = urlsplit(resp.url).path
+        version = re.search(r"_v(\d+(?:_\d+)*)", path)
+        if version:
+            return f"Version {version.group(1)}"
+        if path.endswith(".apk"):
+            return f"URL {path}"
+        modified = resp.headers.get("Last-Modified", None)
+        length = resp.headers.get("Content-Range", "").rpartition("/")[2]
+        length = length or resp.headers.get("Content-Length", None)
+        assert modified and length, f"no version marker found for {resp.url}"
+        return f"Modified {modified} {length}"
+
+    def probe(self, url: str) -> Tuple[str, str]:
+        with self.get(url, stream=True, headers={"Range": "bytes=0-0"}) as resp:
+            resp.raise_for_status()
+            content_type = resp.headers.get("Content-Type", "")
+            assert "html" not in content_type, (
+                f"{url} resolved to a landing page ({content_type}), not a package"
+            )
+            return self.version_tag(resp), resp.url
+
+    def fetch(self, retries=3) -> Tuple[str, str]:
+        """hash, url"""
+        for url in self.urls:
+            for attempt in range(retries):
+                try:
+                    return self.probe(url)
+                except Exception as e:
+                    logger.warning(f"failed to fetch {url}: {e}")
+                    if attempt < retries - 1:
+                        logger.warning(f"retrying {url}...")
+        raise AssertionError(f"none of {self.urls} resolved to a package")
 
 
 def soruce(region: str) -> requests.Session:  # hash, url
     # fmt: off
     match region:
-        case "jp": 
+        case "jp":
             return QooApp(9038)
         case "en":
             return QooApp(18337)
         case "cn":
-            return PlainETag("https://ugapk.com/djogd")        
+            return PlainHTTP("https://ugapk.com/djogd", "https://ugapk.com/dS6rR")
         case "tw":
             return QooApp(18298)
         case "kr":
@@ -89,7 +114,7 @@ def cmd(*command):
     return os.system(cmd)
 
 
-def fetch(region: str):
+def fetch(region: str) -> Optional[str]:
     CWD = lambda *a: os.path.abspath(os.path.join(region, *a))
     os.makedirs(CWD(), exist_ok=True)
     try:
@@ -97,7 +122,7 @@ def fetch(region: str):
         new_hash, url = src.fetch()
     except Exception as e:
         logger.error(f"failed metadata fetch on {region}: {e}")
-        return
+        return None
 
     try:
         if os.path.exists(CWD("package_hash")):
@@ -105,12 +130,12 @@ def fetch(region: str):
                 old_hash = f.read().strip()
                 if old_hash == new_hash:
                     logger.info(f"hash unchanged on {region}: {old_hash}. skipping.")
-                    return
+                    return None
                 else:
                     logger.info(f"hash changed on {region}: {old_hash} -> {new_hash}.")
     except Exception as e:
-        logger.error(f"failed to update hash file on {region}: {e}")
-        return
+        logger.error(f"failed to read hash file on {region}: {e}")
+        return None
 
     try:
         os.makedirs(CWD(".temp"), exist_ok=True)
@@ -121,16 +146,22 @@ def fetch(region: str):
             for s in api_data["splitApks"]:
                 downloads.append((s["signature"].split("-")[0] + ".apk", s["url"]))
 
-        def download_bytes(name, dl_url):
+        def download_file(name, dl_url, dest):
             logger.info(f"downloading {name} for {region}")
             with src.get(dl_url, stream=True) as r:
                 r.raise_for_status()
-                buf = bytearray()
-                for chunk in r.iter_content(chunk_size=8192):
-                    buf.extend(chunk)
-                return bytes(buf)
+                expected = int(r.headers.get("Content-Length", 0))
+                written = 0
+                with open(dest, "wb") as f:
+                    for chunk in r.iter_content(chunk_size=1 << 20):
+                        written += f.write(chunk)
+            assert not expected or written == expected, (
+                f"truncated download of {name} on {region}: {written}/{expected} bytes"
+            )
+            return dest
 
         xapk_path = CWD(".temp", f"{region}.apk")
+        part_path = xapk_path + ".part"
         if api_data and len(downloads) > 1:
             manifest = {
                 "xapk_version": 2,
@@ -139,34 +170,33 @@ def fetch(region: str):
                 "version_code": str(api_data["apk"]["versionCode"]),
                 "version_name": api_data["apk"]["versionName"],
                 "min_sdk_version": str(api_data["apk"]["sdkVersion"]),
-                "split_apks": [{"file": n, "id": n.replace(".apk", "")} for n, _ in downloads],
+                "split_apks": [
+                    {"file": n, "id": n.replace(".apk", "")} for n, _ in downloads
+                ],
             }
-            with zipfile.ZipFile(xapk_path, "w", zipfile.ZIP_STORED) as zf:
+            with zipfile.ZipFile(part_path, "w", zipfile.ZIP_STORED) as zf:
                 zf.writestr("manifest.json", json.dumps(manifest, indent=2))
                 for name, dl_url in downloads:
-                    zf.writestr(name, download_bytes(name, dl_url))
+                    split = download_file(name, dl_url, CWD(".temp", name))
+                    zf.write(split, name)
+                    os.remove(split)
         else:
-            with open(xapk_path, "wb") as f:
-                f.write(download_bytes("base.apk", url))
-
+            download_file("base.apk", url, part_path)
+        os.replace(part_path, xapk_path)
     except Exception as e:
         logger.error(f"failed to download {region}: {e}")
-        return
+        return None
 
-    try:
-        with open(CWD("package_hash"), "w") as f:
-            f.write(new_hash)
-            logger.info(f"hash file updated on {region}: {new_hash}.")
-    except Exception as e:
-        logger.error(f"failed to update hash file on {region}: {e}")
-        return
+    return new_hash
 
 
-def apphash(region: str):
+def apphash(region: str) -> bool:
     CWD = lambda *a: os.path.abspath(os.path.join(region, *a))
-    if not os.path.exists(CWD(".temp", f"{region}.apk")) and not os.path.exists(CWD(".temp", f"{region}.xapk")):
+    if not os.path.exists(CWD(".temp", f"{region}.apk")) and not os.path.exists(
+        CWD(".temp", f"{region}.xapk")
+    ):
         logger.error(f"apk/xapk not found on {region}.")
-        return
+        return False
     from sssekai.entrypoint.apphash import main_apphash
 
     class NamedDict(dict):
@@ -176,31 +206,32 @@ def apphash(region: str):
             except AttributeError:
                 return self.get(name, None)
 
-    apk_src = CWD(".temp", f"{region}.xapk") if os.path.exists(CWD(".temp", f"{region}.xapk")) else CWD(".temp", f"{region}.apk")
+    apk_src = (
+        CWD(".temp", f"{region}.xapk")
+        if os.path.exists(CWD(".temp", f"{region}.xapk"))
+        else CWD(".temp", f"{region}.apk")
+    )
 
-    with open(CWD("apphash.json"), "w") as f:
-        with redirect_stdout(f):
-            main_apphash(
-                NamedDict(
-                    {
-                        "apk_src": apk_src,
-                        "format": "json",
-                        "deep": False
-                    }
+    results = dict()
+    for fmt, out in (("json", "apphash.json"), ("markdown", "apphash.md")):
+        buf = StringIO()
+        try:
+            with redirect_stdout(buf):
+                main_apphash(
+                    NamedDict({"apk_src": apk_src, "format": fmt, "deep": False})
                 )
-            )
+        except Exception as e:
+            logger.error(f"failed to pull {fmt} hashes on {region}: {e}")
+            return False
+        results[out] = buf.getvalue()
+        if not results[out].strip().strip("{}").strip():
+            logger.error(f"no hashes found on {region}. is the package usable?")
+            return False
 
-    with open(CWD("apphash.md"), "w") as f:
-        with redirect_stdout(f):
-            main_apphash(
-                NamedDict(
-                    {
-                        "apk_src": apk_src,
-                        "format": "markdown",
-                        "deep": False
-                    }
-                )
-            )
+    for out, content in results.items():
+        with open(CWD(out), "w", encoding="utf-8") as f:
+            f.write(content)
+    return True
 
 
 def __main__():
@@ -223,13 +254,28 @@ def __main__():
     if args.region != "all":
         REGIONS = [args.region]
 
+    new_hashes = dict()
     if not args.skip_download:
         with ThreadPoolExecutor(max_workers=8) as executor:
-            for region in REGIONS:
-                executor.submit(fetch, region)
+            futures = {region: executor.submit(fetch, region) for region in REGIONS}
+        for region, future in futures.items():
+            try:
+                new_hashes[region] = future.result()
+            except Exception as e:
+                logger.error(f"failed to download {region}: {e}")
 
     for region in REGIONS:
-        apphash(region)
+        CWD = lambda *a: os.path.abspath(os.path.join(region, *a))
+        if not apphash(region):
+            continue
+        if not new_hashes.get(region):
+            continue
+        try:
+            with open(CWD("package_hash"), "w") as f:
+                f.write(new_hashes[region])
+            logger.info(f"hash file updated on {region}: {new_hashes[region]}.")
+        except Exception as e:
+            logger.error(f"failed to update hash file on {region}: {e}")
 
 
 if __name__ == "__main__":
