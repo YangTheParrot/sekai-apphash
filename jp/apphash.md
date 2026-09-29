@@ -1,15 +1,15 @@
 ## production_android
-com.sega.pjsekai (6.8.1, jp)
+com.sega.pjsekai (7.0.0, jp)
 ---
 Reported Package: com.sega.pjsekai
 
 |                                        app_hash|   app_region|  app_version|   ab_version|
 |------------------------------------------------|-------------|-------------|-------------|
-|            20dcf972-c5be-4cb6-87af-2185db08a10a|           jp|        6.8.1|        6.8.0|
+|            23fd5dec-45ce-40c9-88db-1daaa9c1473d|           jp|        7.0.0|        7.0.0|
 
 - CLI Usage:
 
-        sssekai abcache --app-platform android --app-region jp --app-version 6.8.1 --app-appHash 20dcf972-c5be-4cb6-87af-2185db08a10a --app-abVersion 6.8.0
+        sssekai abcache --app-platform android --app-region jp --app-version 7.0.0 --app-appHash 23fd5dec-45ce-40c9-88db-1daaa9c1473d --app-abVersion 7.0.0
 
 - Python Usage:
 
@@ -17,25 +17,25 @@ Reported Package: com.sega.pjsekai
 
         AbCacheConfig(
             app_region="jp",
-            app_version="6.8.1",
-            ab_version="6.8.0",
-            app_hash="20dcf972-c5be-4cb6-87af-2185db08a10a",
+            app_version="7.0.0",
+            row_ab_version="7.0.0",
+            app_hash="23fd5dec-45ce-40c9-88db-1daaa9c1473d",
             app_platform="android"
         )
 
 
 ## production_ios
-com.sega.pjsekai (6.8.1, jp)
+com.sega.pjsekai (7.0.0, jp)
 ---
 Reported Package: com.sega.pjsekai
 
 |                                        app_hash|   app_region|  app_version|   ab_version|
 |------------------------------------------------|-------------|-------------|-------------|
-|            20dcf972-c5be-4cb6-87af-2185db08a10a|           jp|        6.8.1|        6.8.0|
+|            23fd5dec-45ce-40c9-88db-1daaa9c1473d|           jp|        7.0.0|        7.0.0|
 
 - CLI Usage:
 
-        sssekai abcache --app-platform ios --app-region jp --app-version 6.8.1 --app-appHash 20dcf972-c5be-4cb6-87af-2185db08a10a --app-abVersion 6.8.0
+        sssekai abcache --app-platform ios --app-region jp --app-version 7.0.0 --app-appHash 23fd5dec-45ce-40c9-88db-1daaa9c1473d --app-abVersion 7.0.0
 
 - Python Usage:
 
@@ -43,9 +43,9 @@ Reported Package: com.sega.pjsekai
 
         AbCacheConfig(
             app_region="jp",
-            app_version="6.8.1",
-            ab_version="6.8.0",
-            app_hash="20dcf972-c5be-4cb6-87af-2185db08a10a",
+            app_version="7.0.0",
+            row_ab_version="7.0.0",
+            app_hash="23fd5dec-45ce-40c9-88db-1daaa9c1473d",
             app_platform="ios"
         )
 

@@ -1,15 +1,15 @@
 ## production_android
-com.sega.ColorfulStage.en (5.6.1, en)
+com.sega.ColorfulStage.en (6.0.0, en)
 ---
 Reported Package: com.sega.ColorfulStage.en
 
 |                                        app_hash|   app_region|  app_version|   ab_version|
 |------------------------------------------------|-------------|-------------|-------------|
-|            cb13d7ba-d6f1-4932-b1ce-9b5910f0a05d|           en|        5.6.1|        5.6.0|
+|            f1ee1828-9953-48d6-8eaa-b5e24e6a5bf4|           en|        6.0.0|        6.0.0|
 
 - CLI Usage:
 
-        sssekai abcache --app-platform android --app-region en --app-version 5.6.1 --app-appHash cb13d7ba-d6f1-4932-b1ce-9b5910f0a05d --app-abVersion 5.6.0
+        sssekai abcache --app-platform android --app-region en --app-version 6.0.0 --app-appHash f1ee1828-9953-48d6-8eaa-b5e24e6a5bf4 --app-abVersion 6.0.0
 
 - Python Usage:
 
@@ -17,25 +17,25 @@ Reported Package: com.sega.ColorfulStage.en
 
         AbCacheConfig(
             app_region="en",
-            app_version="5.6.1",
-            ab_version="5.6.0",
-            app_hash="cb13d7ba-d6f1-4932-b1ce-9b5910f0a05d",
+            app_version="6.0.0",
+            row_ab_version="6.0.0",
+            app_hash="f1ee1828-9953-48d6-8eaa-b5e24e6a5bf4",
             app_platform="android"
         )
 
 
 ## production_ios
-com.sega.ColorfulStage.en (5.6.1, en)
+com.sega.ColorfulStage.en (6.0.0, en)
 ---
 Reported Package: com.sega.ColorfulStage.en
 
 |                                        app_hash|   app_region|  app_version|   ab_version|
 |------------------------------------------------|-------------|-------------|-------------|
-|            cb13d7ba-d6f1-4932-b1ce-9b5910f0a05d|           en|        5.6.1|        5.6.0|
+|            f1ee1828-9953-48d6-8eaa-b5e24e6a5bf4|           en|        6.0.0|        6.0.0|
 
 - CLI Usage:
 
-        sssekai abcache --app-platform ios --app-region en --app-version 5.6.1 --app-appHash cb13d7ba-d6f1-4932-b1ce-9b5910f0a05d --app-abVersion 5.6.0
+        sssekai abcache --app-platform ios --app-region en --app-version 6.0.0 --app-appHash f1ee1828-9953-48d6-8eaa-b5e24e6a5bf4 --app-abVersion 6.0.0
 
 - Python Usage:
 
@@ -43,9 +43,9 @@ Reported Package: com.sega.ColorfulStage.en
 
         AbCacheConfig(
             app_region="en",
-            app_version="5.6.1",
-            ab_version="5.6.0",
-            app_hash="cb13d7ba-d6f1-4932-b1ce-9b5910f0a05d",
+            app_version="6.0.0",
+            row_ab_version="6.0.0",
+            app_hash="f1ee1828-9953-48d6-8eaa-b5e24e6a5bf4",
             app_platform="ios"
         )
 
