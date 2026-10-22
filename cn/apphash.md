@@ -18,7 +18,7 @@ Reported Package: jp.co.colorfulpalette.sekai.debug1
         AbCacheConfig(
             app_region="cn",
             app_version="6.4.1",
-            ab_version="6.4.0",
+            row_ab_version="6.4.0",
             app_hash="9084e88f-574c-4de4-9797-4a37a01e98cb",
             app_platform="android"
         )
@@ -44,7 +44,7 @@ Reported Package: jp.co.colorfulpalette.sekai.enterprise.debug1
         AbCacheConfig(
             app_region="cn",
             app_version="6.4.1",
-            ab_version="6.4.0",
+            row_ab_version="6.4.0",
             app_hash="9084e88f-574c-4de4-9797-4a37a01e98cb",
             app_platform="ios"
         )
@@ -70,7 +70,7 @@ Reported Package: jp.co.colorfulpalette.sekai.debug2
         AbCacheConfig(
             app_region="cn",
             app_version="6.4.1",
-            ab_version="6.4.0",
+            row_ab_version="6.4.0",
             app_hash="9084e88f-574c-4de4-9797-4a37a01e98cb",
             app_platform="android"
         )
@@ -96,7 +96,7 @@ Reported Package: jp.co.colorfulpalette.sekai.enterprise.debug2
         AbCacheConfig(
             app_region="cn",
             app_version="6.4.1",
-            ab_version="6.4.0",
+            row_ab_version="6.4.0",
             app_hash="9084e88f-574c-4de4-9797-4a37a01e98cb",
             app_platform="ios"
         )
@@ -122,7 +122,7 @@ Reported Package: jp.co.colorfulpalette.sekai.debug3
         AbCacheConfig(
             app_region="cn",
             app_version="6.4.1",
-            ab_version="6.4.0",
+            row_ab_version="6.4.0",
             app_hash="9084e88f-574c-4de4-9797-4a37a01e98cb",
             app_platform="android"
         )
@@ -148,7 +148,7 @@ Reported Package: jp.co.colorfulpalette.sekai.enterprise.debug3
         AbCacheConfig(
             app_region="cn",
             app_version="6.4.1",
-            ab_version="6.4.0",
+            row_ab_version="6.4.0",
             app_hash="9084e88f-574c-4de4-9797-4a37a01e98cb",
             app_platform="ios"
         )
@@ -174,7 +174,7 @@ Reported Package: jp.co.colorfulpalette.sekai.debug
         AbCacheConfig(
             app_region="cn",
             app_version="1.8.0",
-            ab_version="1.8.0",
+            row_ab_version="1.8.0",
             app_hash="1c9c05a3-e583-4d2b-a84a-0431275bd995",
             app_platform="android"
         )
@@ -200,7 +200,7 @@ Reported Package: jp.co.colorfulpalette.sekai.enterprise.debug
         AbCacheConfig(
             app_region="cn",
             app_version="1.8.0",
-            ab_version="1.8.0",
+            row_ab_version="1.8.0",
             app_hash="1c9c05a3-e583-4d2b-a84a-0431275bd995",
             app_platform="ios"
         )
@@ -226,7 +226,7 @@ Reported Package: jp.co.colorfulpalette.sekai.dev
         AbCacheConfig(
             app_region="cn",
             app_version="6.4.1",
-            ab_version="6.4.0",
+            row_ab_version="6.4.0",
             app_hash="573ed226-a708-40f7-9a17-9a6c8816d212",
             app_platform="android"
         )
@@ -252,7 +252,7 @@ Reported Package: jp.co.colorfulpalette.sekai.enterprise.dev
         AbCacheConfig(
             app_region="cn",
             app_version="6.4.1",
-            ab_version="6.4.0",
+            row_ab_version="6.4.0",
             app_hash="573ed226-a708-40f7-9a17-9a6c8816d212",
             app_platform="ios"
         )
@@ -278,7 +278,7 @@ Reported Package: jp.co.colorfulpalette.sekai.load
         AbCacheConfig(
             app_region="cn",
             app_version="6.4.1",
-            ab_version="6.4.0",
+            row_ab_version="6.4.0",
             app_hash="b28c10dd-f30e-415b-b48c-e3d6a8d62a36",
             app_platform="android"
         )
@@ -304,7 +304,7 @@ Reported Package: jp.co.colorfulpalette.sekai.enterprise.load
         AbCacheConfig(
             app_region="cn",
             app_version="6.4.1",
-            ab_version="6.4.0",
+            row_ab_version="6.4.0",
             app_hash="b28c10dd-f30e-415b-b48c-e3d6a8d62a36",
             app_platform="ios"
         )
@@ -330,7 +330,7 @@ Reported Package: com.sega.pjsekai
         AbCacheConfig(
             app_region="cn",
             app_version="6.4.1",
-            ab_version="6.4.0",
+            row_ab_version="6.4.0",
             app_hash="d67a688b-ff78-4300-bfc5-2120c000d75d",
             app_platform="android"
         )
@@ -356,7 +356,7 @@ Reported Package: com.sega.pjsekai
         AbCacheConfig(
             app_region="cn",
             app_version="6.4.1",
-            ab_version="6.4.0",
+            row_ab_version="6.4.0",
             app_hash="d67a688b-ff78-4300-bfc5-2120c000d75d",
             app_platform="ios"
         )
@@ -382,7 +382,7 @@ Reported Package: jp.co.colorfulpalette.sekai.promotion1
         AbCacheConfig(
             app_region="cn",
             app_version="6.4.1",
-            ab_version="6.4.0",
+            row_ab_version="6.4.0",
             app_hash="2ac2dad9-4921-4446-9b3d-8414dc45d089",
             app_platform="android"
         )
@@ -408,7 +408,7 @@ Reported Package: jp.co.colorfulpalette.sekai.enterprise.promotion1
         AbCacheConfig(
             app_region="cn",
             app_version="6.4.1",
-            ab_version="6.4.0",
+            row_ab_version="6.4.0",
             app_hash="2ac2dad9-4921-4446-9b3d-8414dc45d089",
             app_platform="ios"
         )
@@ -434,7 +434,7 @@ Reported Package: jp.co.colorfulpalette.sekai.promotion2
         AbCacheConfig(
             app_region="cn",
             app_version="6.4.1",
-            ab_version="6.4.0",
+            row_ab_version="6.4.0",
             app_hash="2ac2dad9-4921-4446-9b3d-8414dc45d089",
             app_platform="android"
         )
@@ -460,7 +460,7 @@ Reported Package: jp.co.colorfulpalette.sekai.enterprise.promotion2
         AbCacheConfig(
             app_region="cn",
             app_version="6.4.1",
-            ab_version="6.4.0",
+            row_ab_version="6.4.0",
             app_hash="2ac2dad9-4921-4446-9b3d-8414dc45d089",
             app_platform="ios"
         )
@@ -486,7 +486,7 @@ Reported Package: jp.co.colorfulpalette.sekai.promotion3
         AbCacheConfig(
             app_region="cn",
             app_version="6.4.1",
-            ab_version="6.4.0",
+            row_ab_version="6.4.0",
             app_hash="2ac2dad9-4921-4446-9b3d-8414dc45d089",
             app_platform="android"
         )
@@ -512,7 +512,7 @@ Reported Package: jp.co.colorfulpalette.sekai.enterprise.promotion3
         AbCacheConfig(
             app_region="cn",
             app_version="6.4.1",
-            ab_version="6.4.0",
+            row_ab_version="6.4.0",
             app_hash="2ac2dad9-4921-4446-9b3d-8414dc45d089",
             app_platform="ios"
         )
@@ -538,7 +538,7 @@ Reported Package: jp.co.colorfulpalette.sekai.staging1
         AbCacheConfig(
             app_region="cn",
             app_version="6.4.1",
-            ab_version="6.4.0",
+            row_ab_version="6.4.0",
             app_hash="b1456c06-2796-4fc3-8850-cd77d2462eae",
             app_platform="android"
         )
@@ -564,7 +564,7 @@ Reported Package: jp.co.colorfulpalette.sekai.enterprise.staging1
         AbCacheConfig(
             app_region="cn",
             app_version="6.4.1",
-            ab_version="6.4.0",
+            row_ab_version="6.4.0",
             app_hash="b1456c06-2796-4fc3-8850-cd77d2462eae",
             app_platform="ios"
         )
@@ -590,7 +590,7 @@ Reported Package: jp.co.colorfulpalette.sekai.staging2
         AbCacheConfig(
             app_region="cn",
             app_version="6.4.1",
-            ab_version="6.4.0",
+            row_ab_version="6.4.0",
             app_hash="b1456c06-2796-4fc3-8850-cd77d2462eae",
             app_platform="android"
         )
@@ -616,7 +616,7 @@ Reported Package: jp.co.colorfulpalette.sekai.enterprise.staging2
         AbCacheConfig(
             app_region="cn",
             app_version="6.4.1",
-            ab_version="6.4.0",
+            row_ab_version="6.4.0",
             app_hash="b1456c06-2796-4fc3-8850-cd77d2462eae",
             app_platform="ios"
         )
@@ -642,7 +642,7 @@ Reported Package: jp.co.colorfulpalette.sekai.staging3
         AbCacheConfig(
             app_region="cn",
             app_version="6.4.1",
-            ab_version="6.4.0",
+            row_ab_version="6.4.0",
             app_hash="b1456c06-2796-4fc3-8850-cd77d2462eae",
             app_platform="android"
         )
@@ -668,7 +668,7 @@ Reported Package: jp.co.colorfulpalette.sekai.enterprise.staging3
         AbCacheConfig(
             app_region="cn",
             app_version="6.4.1",
-            ab_version="6.4.0",
+            row_ab_version="6.4.0",
             app_hash="b1456c06-2796-4fc3-8850-cd77d2462eae",
             app_platform="ios"
         )
@@ -694,7 +694,7 @@ Reported Package: jp.co.colorfulpalette.sekai.staging
         AbCacheConfig(
             app_region="cn",
             app_version="1.8.0",
-            ab_version="1.8.0",
+            row_ab_version="1.8.0",
             app_hash="27212322-6d52-4b75-9be4-1b3871882f26",
             app_platform="android"
         )
@@ -720,7 +720,7 @@ Reported Package: jp.co.colorfulpalette.sekai.enterprise.staging
         AbCacheConfig(
             app_region="cn",
             app_version="1.8.0",
-            ab_version="1.8.0",
+            row_ab_version="1.8.0",
             app_hash="27212322-6d52-4b75-9be4-1b3871882f26",
             app_platform="ios"
         )
